@@ -1,0 +1,36 @@
+<%- include('parts/header')%>
+    <% if(errors) { %>
+         <p class="p-2 text-white text-center
+          bg-blue-400 font-bold">
+             <%= errors %>
+         </p>
+
+        <%  } %>
+   
+    <form method="POST" class="flex flex-col absolute top-20 md:relative px-2 justify-center w-full  md:w-1/2 md:mx-auto text-center">
+        <input class=" p-2" type="text" name="email" placeholder="email" id="">
+        <% let emailErr = vaildatorErr.find(err => err.param === "email") %>
+
+        <% if(emailErr) {%>
+            <p class=" text-left
+            text-red-400 font-bold">
+               <%= emailErr.msg %>
+           </p>
+        <%}%>
+        <input class="my-2 p-2" type="password"  placeholder="password" name="password" id="">
+        <% let passwordErr = vaildatorErr.find(err => err.param === "password") %>
+
+        <% if(passwordErr) {%>
+            <p class="  text-left
+            text-red-400 font-bold">
+              * <%= passwordErr.msg %>
+           </p>
+        <%}%>
+        <input type="submit" class="" value="login">
+
+         <p>if you are not have account signup here <a href="/rejister" class="text-blue-400">signup</a></p>
+    </form>
+
+<%- include('parts/footer')%>
+</body>
+</html>

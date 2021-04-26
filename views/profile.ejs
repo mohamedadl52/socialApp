@@ -1,0 +1,72 @@
+<%- include("parts/header") %>
+     
+       
+
+
+<div class="flex ml-20 ">
+    <img width="200px" class="ml-20" src="/<%= userImage %>" alt="">
+    <p class="ml-10 mt-10 text-white text-xl " > <%= userName %> </p>
+ 
+    
+    
+</div>
+
+<div class="text-center text-white text-xl">
+    <% if(!isOwner) {%>
+          <form method="POST">
+
+                    <input type="hidden" name="myImage" value="<%= myImage %>">
+                    <input type="hidden" name="myname" value="<%= myname %>">
+                    <input type="hidden" name="myID" value="<%= myID %>">
+                    <input type="hidden" name="friendName" value="<%= userName %>">
+                    <input type="hidden" name="friendImage" value="<%= userImage %>">
+                    <input type="hidden" name="friendId" value="<%=  friendId %>">
+
+
+                    
+                    <div>
+                  <% if(isFriends){ %>
+                         
+                    <input type="submit" value="delet freind" formaction="/friend/delete" class="p-2 bg-red-500 text-white ">
+                    
+                    <%} else if (isRequestsSent) {%>
+                        <input type="submit" value="cancal requiest" formaction="/friend/cancel" class="p-2 bg-red-500 text-white ">
+                          
+                        <%} else if (isRequestsRecieved){%>
+                            <input type="submit" value="accept" formaction="/friend/accept" class="p-2 bg-green-500 text-white ">
+                            <input type="submit" value="reject" formaction="/friend/reject" class="p-2 bg-red-500 text-white ">
+                            requiest recieved 
+                            <%} else {%>
+                                
+                                <input type="submit" value="add" formaction="/friend/add" class="p-2 bg-blue-500 text-white ">
+                                <%}%>
+                            </form>
+              </div> 
+      <%}%>
+</div>
+
+<div class="text-right mr-20 mt-0">
+    <p class="text-red-500 font-bold font-mono ">freind requiest</p>
+ 
+
+    <%if(friendRequiest.length === 0){%>
+                
+        <p class="text-green-500 ">no freind REquiest</p>
+        
+        <%}%>
+    <%  for(request of friendRequiest) { %>
+         <a class="text-white hover:text-blue-400 font-semibold" href="/profile/<%= request.id%>"><%= request.name%></a>
+
+     <% }%>
+
+</div>
+
+<%- include("parts/footer") %>
+
+<%if(!isOwner && !isFriends){%>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/sokects/init.js"></script>
+
+    <%}%>
+</body>
+</html>
